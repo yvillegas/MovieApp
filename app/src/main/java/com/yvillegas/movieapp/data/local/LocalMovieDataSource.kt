@@ -20,6 +20,12 @@ class LocalMovieDataSource(private val movieDao: MovieDao) {
         return movieDao.getAllMovies().filter { it.movieType == "popular" }.toMovieList()
     }
 
+    suspend fun getFavoriteMovies(): MovieList
+    {
+        return movieDao.getAllMovies().filter { it.movieType == "favorite" }.toMovieList()
+    }
+
+
     suspend fun saveMovie(movie: MovieEntity){
         movieDao.saveMovie(movie)
     }
