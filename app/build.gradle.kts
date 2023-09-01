@@ -24,8 +24,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            resValue("String","BASE_URL", "https://api.themoviedb.org/3/")
-            resValue("String","API_KEY", "f09d377e54d99ed8faeb53d5dbba7ce8")
         }
     }
     compileOptions {
