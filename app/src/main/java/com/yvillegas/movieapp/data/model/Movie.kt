@@ -1,11 +1,13 @@
 package com.yvillegas.movieapp.data.model
 
 import com.google.gson.annotations.SerializedName
+import com.yvillegas.movieapp.data.model.entities.MovieEntity
 
 data class MovieList(
-    val page: Long? = null,
 
     val results: List<Movie>? = listOf(),
+
+    val page: Long? = null,
 
     @SerializedName("total_pages")
     val totalPages: Long? = null,
@@ -49,4 +51,20 @@ data class Movie(
 
     @SerializedName("movie_type")
     val movieType: String? = null
+)
+
+fun Movie.toMovieEntity(movieType: String): MovieEntity = MovieEntity(
+    this.id,
+    this.adult,
+    this.backdropPath?:"",
+    this.originalTitle,
+    this.originalLanguage,
+    this.overview,
+    this.popularity,
+    this.posterPath,
+    this.releaseDate,
+    this.video,
+    this.voteAverage,
+    this.voteCount,
+    movieType = movieType
 )
