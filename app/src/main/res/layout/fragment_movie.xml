@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.movie.adapters.MovieFragment">
-
+    android:orientation="horizontal"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.movie.MovieFragment">
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textAlignment="center"

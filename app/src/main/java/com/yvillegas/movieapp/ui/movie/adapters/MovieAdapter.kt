@@ -3,16 +3,14 @@ package com.yvillegas.movieapp.ui.movie.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.AdapterView.OnItemClickListener
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.yvillegas.movieapp.core.BaseViewHolder
 import com.yvillegas.movieapp.data.model.Movie
-import com.yvillegas.movieapp.data.model.MovieList
 import com.yvillegas.movieapp.databinding.MovieItemBinding
 
-class MovieAdapter (private val movieList: List<Movie>, private val itemClickListener: OnMovieClickListener) : RecyclerView.Adapter<BaseViewHolder<*>>(){
+class MovieAdapter(private val movieList: List<Movie>, private val itemClickListener: OnMovieClickListener) : RecyclerView.Adapter<BaseViewHolder<*>>(){
     interface OnMovieClickListener{
         fun onMovieClick(movie: Movie)
     }
