@@ -1,5 +1,6 @@
 package com.yvillegas.movieapp.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
@@ -10,6 +11,7 @@ import java.lang.Exception
 
 class MovieViewModel(private val repository: MovieRepository): ViewModel() {
     fun getMovies() = liveData(Dispatchers.IO) {
+        Log.d("LiveDataeeee", "getmovie")
         emit(Resource.Loading())
         try {
             emit(Resource.Success(Triple(repository.getUpcomingMovies(), repository.getTopRatedMovies() , repository.getPopularMovies())))

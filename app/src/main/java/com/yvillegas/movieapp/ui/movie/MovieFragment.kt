@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -37,23 +36,26 @@ class MovieFragment : Fragment(R.layout.fragment_movie) , MovieAdapter.OnMovieCl
 
     private lateinit var concatAdapter: ConcatAdapter
 
+
     private val viewModel by viewModels<MovieViewModel> {
         MovieViewModelFactory(
             MovieRepositoryImpl(
-                RemoteMovieDataSource(RetrofitClient.webservice)
+                RemoteMovieDataSource(RetrofitClient.webservice),
+                LocalMovieDataSource(AppDatabase.getDatabase(requireContext()).movieDao())
             )
         )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding = FragmentMovieBinding.bind(view)
 
         val navHostFragment = (activity as FragmentActivity).supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
+        //observeDestinationChange()
 
-        observeDestinationChange()
 
         concatAdapter = ConcatAdapter()
 
@@ -67,7 +69,6 @@ class MovieFragment : Fragment(R.layout.fragment_movie) , MovieAdapter.OnMovieCl
                 R.id.movieFragment -> {
                     binding.bottomNavigationView.hide()
                 }
-
                 else -> {
                     binding.bottomNavigationView.show()
                 }
@@ -76,12 +77,13 @@ class MovieFragment : Fragment(R.layout.fragment_movie) , MovieAdapter.OnMovieCl
     }
 
     private fun initRecyclerView() {
+        Log.d("LiveDataeeee", "init recycler")
         viewModel.getMovies().observe(viewLifecycleOwner) { result ->
 
             when (result) {
                 is Resource.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
-                    Log.d("LiveDataeeee", "cargandoo")
+
                 }
 
                 is Resource.Success -> {

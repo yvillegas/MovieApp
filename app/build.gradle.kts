@@ -52,8 +52,8 @@ dependencies {
     implementation ("androidx.navigation:navigation-fragment-ktx:2.6.0")
     implementation ("androidx.navigation:navigation-ui-ktx:2.6.0")
     //Viewmodel and livedata KTX
-    implementation ("androidx.lifecycle:lifecycle-viewmodel:2.6.1")
-    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel:2.5.1")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
     //utils
     implementation ("de.hdodenhof:circleimageview:3.1.0")
     implementation ("com.github.bumptech.glide:glide:4.15.1")
@@ -65,9 +65,9 @@ dependencies {
     //recyclerview
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
     //Room
-    implementation("androidx.room:room-runtime:2.5.0")
-    annotationProcessor("androidx.room:room-compiler:2.5.0")
+    implementation("androidx.room:room-runtime:2.5.2")
+    kapt("androidx.room:room-compiler:2.5.2")
     // optional - Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:2.5.0")
-    kapt("androidx.room:room-ktx:2.5.0")
+    implementation("androidx.room:room-ktx:2.5.2")
+    kapt("androidx.room:room-ktx:2.5.2")
 }

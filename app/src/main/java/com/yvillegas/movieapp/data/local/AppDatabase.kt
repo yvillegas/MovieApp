@@ -19,7 +19,7 @@ abstract class AppDatabase: RoomDatabase() {
             INSTANCE = INSTANCE ?: Room.databaseBuilder(
                 context.applicationContext,
                 AppDatabase::class.java,
-                "movie_table1"
+                "movie_table"
             ).build()
 
             return INSTANCE!!
