@@ -5,7 +5,7 @@ import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.Socket
 
-class InternetCheck {
+object InternetCheck {
     suspend fun isNetworkAvailable() =  coroutineScope {
         return@coroutineScope try {
             val sock = Socket()

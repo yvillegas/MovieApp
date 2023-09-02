@@ -61,6 +61,8 @@ dependencies {
     //retrofit2
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    //recyclerview
+    implementation ("androidx.recyclerview:recyclerview:1.2.1")
     //Room
     implementation("androidx.room:room-runtime:2.5.0")
     annotationProcessor("androidx.room:room-compiler:2.5.0")
