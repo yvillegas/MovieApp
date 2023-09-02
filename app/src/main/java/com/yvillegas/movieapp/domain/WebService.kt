@@ -1,7 +1,6 @@
 package com.yvillegas.movieapp.domain
 
 import com.google.gson.GsonBuilder
-import com.yvillegas.movieapp.R
 import com.yvillegas.movieapp.application.AppConstants
 import com.yvillegas.movieapp.data.model.MovieList
 import retrofit2.Retrofit

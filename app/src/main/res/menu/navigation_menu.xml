@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <item android:id="@+id/homeScreenFragment"
+        android:icon="@drawable/outline_movie_24"
+        android:title="Movies"/>
+    <item android:id="@+id/profileFragment"
+        android:icon="@drawable/baseline_star_border_24"
+        android:title="Favorites"/>
+</menu>

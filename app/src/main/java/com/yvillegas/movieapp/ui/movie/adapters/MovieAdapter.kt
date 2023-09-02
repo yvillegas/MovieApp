@@ -1,6 +1,7 @@
 package com.yvillegas.movieapp.ui.movie.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -16,15 +17,16 @@ class MovieAdapter(private val movieList: List<Movie>, private val itemClickList
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
+        Log.d("LiveDatasss", "create holder")
         val itemBinding = MovieItemBinding.inflate(LayoutInflater.from(parent.context),parent, false)
+        Log.d("LiveDatasss", "create holder")
         val holder = MovieViewHolder(itemBinding, parent.context)
 
         itemBinding.root.setOnClickListener{
-            val position = holder.adapterPosition.takeIf { it != DiffUtil.DiffResult.NO_POSITION }
+            val position = holder.bindingAdapterPosition.takeIf { it != DiffUtil.DiffResult.NO_POSITION }
                 ?: return@setOnClickListener
             itemClickListener.onMovieClick(movieList[position])
         }
-
         return holder
     }
 
@@ -43,6 +45,10 @@ class MovieAdapter(private val movieList: List<Movie>, private val itemClickList
 
         override fun bind(item: Movie) {
             Glide.with(context).load("https://image.tmdb.org/t/p/w500/${item.posterPath}").centerCrop().into(binding.imgMovie)
+
+            Log.d("LiveDatasss", item.originalTitle.toString())
+            binding.titleMovie.text = item.originalTitle.toString()
+            binding.dateMovie.text = item.releaseDate
         }
     }
 

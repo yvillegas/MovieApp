@@ -24,6 +24,7 @@ class TopRatedConcatAdapter(private val movieAdapter: MovieAdapter): RecyclerVie
     private inner class ConcatViewHolder(val binding: TopRatedMoviesBinding): BaseConcatHolder<MovieAdapter>(binding.root){
         override fun bind(adapter: MovieAdapter) {
             binding.rvTopRated.adapter = adapter
+
         }
     }
 }

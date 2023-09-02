@@ -7,6 +7,6 @@ interface MovieRepository {
     suspend fun getUpcomingMovies(): MovieList
     suspend fun getTopRatedMovies(): MovieList
     suspend fun getPopularMovies(): MovieList
-    suspend fun getFavoriteMovies(): MovieList
-    suspend fun saveFavoriteMovies(movie: Movie)
+    //suspend fun getFavoriteMovies(): MovieList
+    //suspend fun saveFavoriteMovies(movie: Movie)
 }

@@ -12,13 +12,12 @@
         android:layout_height="wrap_content"
         android:text="Top Rated"
         android:textColor="@color/white"
-        android:textStyle="bold"
-        android:textSize="20sp"/>
+        android:textSize="12sp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_top_rated"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/movie_item"/>
