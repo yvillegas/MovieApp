@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import com.yvillegas.movieapp.R
@@ -28,6 +29,7 @@ import com.yvillegas.movieapp.ui.movie.adapters.MovieAdapter
 import com.yvillegas.movieapp.ui.movie.adapters.concat.PopularConcatAdapter
 import com.yvillegas.movieapp.ui.movie.adapters.concat.TopRatedConcatAdapter
 import com.yvillegas.movieapp.ui.movie.adapters.concat.UpcomingConcatAdapter
+import com.yvillegas.movieapp.ui.moviedetail.MovieDetailFragment
 
 class MovieFragment : Fragment(R.layout.fragment_movie) , MovieAdapter.OnMovieClickListener{
     private lateinit var binding: FragmentMovieBinding
@@ -127,6 +129,14 @@ class MovieFragment : Fragment(R.layout.fragment_movie) , MovieAdapter.OnMovieCl
     }
 
     override fun onMovieClick(movie: Movie) {
-        TODO("Not yet implemented")
+        val action = MovieFragmentDirections.actionMovieFragmentToMovieDetailFragment(
+            movie.posterPath!!,
+            movie.originalTitle!!,
+            movie.voteAverage!!.toFloat(),
+            movie.overview!!,
+            movie.id!!,
+            movie.releaseDate!!
+        )
+        findNavController().navigate(action)
     }
 }

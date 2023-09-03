@@ -13,9 +13,7 @@ class MovieRepositoryImpl(
     private val dataSourceLocal: LocalMovieDataSource
 ): MovieRepository {
     override suspend fun getUpcomingMovies(): MovieList {
-        Log.d("LiveDataeeee", "internetchec")
         return if (InternetCheck.isNetworkAvailable()) {
-            Log.d("LiveDataeeee", "internetchec")
             dataSourceRemote.getUpcomingMovies().results?.forEach { movie ->
                 dataSourceLocal.saveMovie(movie.toMovieEntity("upcoming"))
             }
