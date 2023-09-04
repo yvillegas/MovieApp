@@ -11,7 +11,6 @@ import java.lang.Exception
 
 class MovieViewModel(private val repository: MovieRepository): ViewModel() {
     fun getMovies() = liveData(Dispatchers.IO) {
-        Log.d("LiveDataeeee", "getmovie")
         emit(Resource.Loading())
         try {
             emit(Resource.Success(Triple(repository.getUpcomingMovies(), repository.getTopRatedMovies() , repository.getPopularMovies())))

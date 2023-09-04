@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.yvillegas.movieapp.R
 import com.yvillegas.movieapp.databinding.FragmentMovieBinding
 import com.yvillegas.movieapp.databinding.FragmentMovieFavoritesBinding
+import com.yvillegas.movieapp.ui.moviefavorites.adapters.FavoriteAdapter
 
 
 class MovieFavoritesFragment : Fragment(R.layout.fragment_movie_favorites) {
