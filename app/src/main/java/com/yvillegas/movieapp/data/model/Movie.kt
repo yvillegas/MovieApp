@@ -50,13 +50,16 @@ data class Movie(
     val voteCount: Int? = null,
 
     @SerializedName("movie_type")
-    val movieType: String? = null
+    val movieType: String? = null,
+
+    @SerializedName("favorite")
+    val favorite: Boolean? = false
 )
 
 fun Movie.toMovieEntity(movieType: String): MovieEntity = MovieEntity(
     this.id,
     this.adult,
-    this.backdropPath?:"",
+    this.backdropPath ?: "",
     this.originalTitle,
     this.originalLanguage,
     this.overview,
@@ -66,5 +69,6 @@ fun Movie.toMovieEntity(movieType: String): MovieEntity = MovieEntity(
     this.video,
     this.voteAverage,
     this.voteCount,
-    movieType = movieType
+    movieType = movieType,
+    this.favorite
 )

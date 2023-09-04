@@ -35,7 +35,7 @@ data class MovieEntity(
     @ColumnInfo(name = "movie_type")
     val movieType: String = "",
     @ColumnInfo(name = "favorite")
-    val favorite: Boolean = false
+    val favorite: Boolean? = false
 )
 
 fun MovieEntity.toMovie(): Movie = Movie(
@@ -52,6 +52,7 @@ fun MovieEntity.toMovie(): Movie = Movie(
     this.voteAverage,
     this.voteCount,
     this.movieType,
+    this.favorite,
 )
 
 fun List<MovieEntity>.toMovieList(): MovieList {

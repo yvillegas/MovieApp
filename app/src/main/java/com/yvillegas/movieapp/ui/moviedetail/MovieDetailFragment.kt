@@ -21,6 +21,9 @@ import com.yvillegas.movieapp.domain.MovieRepositoryImpl
 import com.yvillegas.movieapp.domain.RetrofitClient
 import com.yvillegas.movieapp.presentation.CastViewModel
 import com.yvillegas.movieapp.presentation.CastViewModelFactory
+import com.yvillegas.movieapp.presentation.FavoriteViewModel
+import com.yvillegas.movieapp.presentation.MovieViewModel
+import com.yvillegas.movieapp.presentation.MovieViewModelFactory
 import com.yvillegas.movieapp.ui.moviedetail.adapters.CastAdapter
 
 
@@ -40,12 +43,25 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
         )
     }
 
+    private val viewModelM by viewModels<FavoriteViewModel> {
+        MovieViewModelFactory(
+            MovieRepositoryImpl(
+                RemoteMovieDataSource(RetrofitClient.webservice),
+                LocalMovieDataSource(AppDatabase.getDatabase(requireContext()).movieDao())
+            )
+        )
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         getMovieDetail(view)
 
         initRecycleViewCast(args.id.toString())
+
+        binding.btnAddFavorite.setOnClickListener{
+            addMovieFavorite(args.id.toString())
+        }
     }
 
     private fun initRecycleViewCast(id: String) {
@@ -84,8 +100,30 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
         binding.overviewMovie.text = args.overview
     }
 
-    private fun addMovieFavorite() {
+    private fun addMovieFavorite(id: String) {
+        viewModelM.addFavoriteMovie(id).observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Loading -> {
+                }
 
+                is Resource.Success -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "Se agregó a favoritos",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                is Resource.Failure -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "Ocurrio un error: ${it.exception}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+        }
     }
 
 }

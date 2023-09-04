@@ -33,10 +33,10 @@
         </FrameLayout>
 
         <ImageView
+            android:id="@+id/btn_add_favorite"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_margin="5dp"
-            android:id="@+id/profileFragment"
             android:src="@drawable/baseline_star_border_24"
             app:tint="@color/white"
             app:layout_constraintTop_toTopOf="parent"

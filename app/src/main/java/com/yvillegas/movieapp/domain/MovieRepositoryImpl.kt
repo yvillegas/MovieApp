@@ -50,7 +50,7 @@ class MovieRepositoryImpl(
         TODO("Not yet implemented")
     }
 
-    override suspend fun addFavoriteMovies(id: String) = dataSourceRemote.addFavoriteMovies(id)
+    override suspend fun addFavoriteMovies(id: String) = dataSourceLocal.addFavoriteMovies(id)
 
     /* override suspend fun getFavoriteMovies(): MovieList = dataSourceLocal.getFavoriteMovies()
 
