@@ -25,11 +25,15 @@ class LocalMovieDataSource(private val movieDao: MovieDao) {
         return movieDao.getAllMovies().filter { it.movieType == "favorite" }.toMovieList()
     }
 
+
+    suspend fun saveMovie(movie: MovieEntity){
+        movieDao.saveMovie(movie)
+    }
+
     suspend fun addFavoriteMovies(id: String){
         movieDao.addFavorite(id)
     }
     suspend fun deleteFavoriteMovies(id: String){
         movieDao.deleteFavorite(id)
     }
-
 }
