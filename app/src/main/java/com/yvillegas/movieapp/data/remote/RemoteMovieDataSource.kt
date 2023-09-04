@@ -14,4 +14,7 @@ class RemoteMovieDataSource(private val webService: WebService) {
 
     suspend fun getPopularMovies(): MovieList = webService.getPopularMovies(AppConstants.API_KEY)
     suspend fun getCastMovie(id: String): CastList = webService.getCastMovie(id, AppConstants.API_KEY)
+    fun addFavoriteMovies(id: String) {
+
+    }
 }

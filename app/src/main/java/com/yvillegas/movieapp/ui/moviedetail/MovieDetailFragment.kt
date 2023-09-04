@@ -84,8 +84,7 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
         binding.overviewMovie.text = args.overview
     }
 
-    private fun initRecyclerView() {
-
+    private fun addMovieFavorite() {
 
     }
 

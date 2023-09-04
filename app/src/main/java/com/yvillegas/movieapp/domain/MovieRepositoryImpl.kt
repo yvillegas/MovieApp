@@ -46,6 +46,11 @@ class MovieRepositoryImpl(
     }
 
     override suspend fun getCastMovie(id: String): CastList = dataSourceRemote.getCastMovie(id)
+    override suspend fun getFavoriteMovies(): MovieList {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun addFavoriteMovies(id: String) = dataSourceRemote.addFavoriteMovies(id)
 
     /* override suspend fun getFavoriteMovies(): MovieList = dataSourceLocal.getFavoriteMovies()
 

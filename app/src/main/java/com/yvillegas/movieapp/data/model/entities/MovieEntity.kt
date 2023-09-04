@@ -33,7 +33,9 @@ data class MovieEntity(
     @ColumnInfo(name = "vote_count")
     val voteCount: Int? = -1,
     @ColumnInfo(name = "movie_type")
-    val movieType: String = ""
+    val movieType: String = "",
+    @ColumnInfo(name = "favorite")
+    val favorite: Boolean = false
 )
 
 fun MovieEntity.toMovie(): Movie = Movie(
