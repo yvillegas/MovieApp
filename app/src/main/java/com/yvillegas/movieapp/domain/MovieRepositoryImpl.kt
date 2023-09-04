@@ -1,9 +1,9 @@
 package com.yvillegas.movieapp.domain
 
-import android.util.Log
 import com.yvillegas.movieapp.core.InternetCheck
 import com.yvillegas.movieapp.data.local.LocalMovieDataSource
-import com.yvillegas.movieapp.data.model.Movie
+import com.yvillegas.movieapp.data.model.Cast
+import com.yvillegas.movieapp.data.model.CastList
 import com.yvillegas.movieapp.data.model.MovieList
 import com.yvillegas.movieapp.data.model.toMovieEntity
 import com.yvillegas.movieapp.data.remote.RemoteMovieDataSource
@@ -44,6 +44,8 @@ class MovieRepositoryImpl(
             dataSourceLocal.getPopularMovies()
         }
     }
+
+    override suspend fun getCastMovie(id: String): CastList = dataSourceRemote.getCastMovie(id)
 
     /* override suspend fun getFavoriteMovies(): MovieList = dataSourceLocal.getFavoriteMovies()
 

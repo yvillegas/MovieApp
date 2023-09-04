@@ -9,3 +9,5 @@ data class Cast (
     val profilePath: String? = null,
     val character: String? = null,
 )
+
+data class CastList (val cast: List<Cast>? = listOf())

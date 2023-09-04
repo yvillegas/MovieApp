@@ -45,8 +45,6 @@ class MovieAdapter(private val movieList: List<Movie>, private val itemClickList
 
         override fun bind(item: Movie) {
             Glide.with(context).load("https://image.tmdb.org/t/p/w500/${item.posterPath}").centerCrop().into(binding.imgMovie)
-
-            Log.d("LiveDatasss", item.originalTitle.toString())
             binding.titleMovie.text = item.originalTitle.toString()
             binding.dateMovie.text = item.releaseDate
         }
