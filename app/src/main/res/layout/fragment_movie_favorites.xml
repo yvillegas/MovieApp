@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black"
     tools:context=".ui.moviefavorites.MovieFavoritesFragment">
 
@@ -29,18 +30,19 @@
             android:id="@+id/txt_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp"
+            android:paddingTop="11dp"
             android:text="Favorite Movies"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="25sp"/>
+            android:textSize="20sp"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="7dp"
             android:id="@+id/rv_movies_favorite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/favorite_item"
             />
 

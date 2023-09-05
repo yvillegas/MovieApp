@@ -53,7 +53,7 @@ data class Movie(
     val movieType: String? = null,
 
     @SerializedName("favorite")
-    val favorite: Boolean? = false
+    val favorite: String? = "false"
 )
 
 fun Movie.toMovieEntity(movieType: String): MovieEntity = MovieEntity(

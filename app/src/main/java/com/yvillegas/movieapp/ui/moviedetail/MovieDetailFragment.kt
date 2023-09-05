@@ -1,5 +1,8 @@
 package com.yvillegas.movieapp.ui.moviedetail
 
+import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -32,7 +35,8 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
     private lateinit var binding: FragmentMovieDetailBinding
     private val args by navArgs<MovieDetailFragmentArgs>()
     private lateinit var castList: CastList
-    private lateinit var llManager: GridLayoutManager
+    private val colorStar = intArrayOf(Color.rgb(255, 195, 0), Color.rgb(255, 255, 255))
+    private var flagStar:Boolean = false
 
     private val viewModel by viewModels<CastViewModel> {
         CastViewModelFactory(
@@ -55,6 +59,7 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        flagStar=args.favorite.toBoolean()
         getMovieDetail(view)
 
         initRecycleViewCast(args.id.toString())
@@ -98,20 +103,32 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
         binding.dateMovie.text = args.releaseDate
         binding.averageMovie.text = args.voteAverage.toString()
         binding.overviewMovie.text = args.overview
+        getFavoriteStar()
+    }
+
+    private fun getFavoriteStar() {
+        binding.btnAddFavorite.setColorFilter(
+            if(flagStar) colorStar[0] else colorStar[1]
+        )
     }
 
     private fun addMovieFavorite(id: String) {
-        viewModelM.addFavoriteMovie(id).observe(viewLifecycleOwner) {
+        viewModelM.addFavoriteMovie(id,(!flagStar).toString()).observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Loading -> {
                 }
 
                 is Resource.Success -> {
+
+                    flagStar = !flagStar
                     Toast.makeText(
                         requireContext(),
-                        "Se agregó a favoritos",
+                        if(flagStar) "Se agregó a favoritos" else "Se eliminó de favoritos",
                         Toast.LENGTH_SHORT
                     ).show()
+                    getFavoriteStar()
+
+
                 }
 
                 is Resource.Failure -> {

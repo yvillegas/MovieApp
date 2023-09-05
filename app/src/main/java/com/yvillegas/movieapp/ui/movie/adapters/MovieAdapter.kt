@@ -17,9 +17,7 @@ class MovieAdapter(private val movieList: List<Movie>, private val itemClickList
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
-        Log.d("LiveDatasss", "create holder")
         val itemBinding = MovieItemBinding.inflate(LayoutInflater.from(parent.context),parent, false)
-        Log.d("LiveDatasss", "create holder")
         val holder = MovieViewHolder(itemBinding, parent.context)
 
         itemBinding.root.setOnClickListener{

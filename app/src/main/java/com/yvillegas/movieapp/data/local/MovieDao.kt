@@ -12,11 +12,11 @@ interface MovieDao {
     @Query("SELECT * FROM MovieEntity")
     suspend fun getAllMovies():List<MovieEntity>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun saveMovie(movie: MovieEntity)
 
-    @Query("UPDATE MovieEntity SET favorite = 'true' WHERE id = :id")
-    suspend fun addFavorite(id: String){}
+    @Query("UPDATE MovieEntity SET favorite = :flag WHERE id = :id")
+    suspend fun addFavorite(id: String,flag:String)
 
     @Query("UPDATE MovieEntity SET favorite = 'false' WHERE id = :id")
     suspend fun deleteFavorite(id: String)

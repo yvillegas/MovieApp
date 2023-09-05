@@ -9,8 +9,8 @@
 
 
     <androidx.cardview.widget.CardView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_margin="8dp"
         android:clipToPadding="true"
         app:cardCornerRadius="100dp">
@@ -31,7 +31,7 @@
         android:gravity="center"
         android:paddingHorizontal="10dp"
         tools:text="Titulo"
-        android:textSize="9sp"
+        android:textSize="8sp"
         android:textColor="@color/white"/>
 
     <TextView
@@ -41,7 +41,7 @@
         android:gravity="center"
         android:paddingHorizontal="10dp"
         tools:text="Titulo"
-        android:textSize="7sp"
+        android:textSize="6sp"
         android:textColor="@color/white"/>
 
 </LinearLayout>

@@ -34,7 +34,6 @@ import com.yvillegas.movieapp.ui.moviedetail.MovieDetailFragment
 class MovieFragment : Fragment(R.layout.fragment_movie) , MovieAdapter.OnMovieClickListener{
     private lateinit var binding: FragmentMovieBinding
 
-    private lateinit var navController: NavController
 
     private lateinit var concatAdapter: ConcatAdapter
 
@@ -53,30 +52,12 @@ class MovieFragment : Fragment(R.layout.fragment_movie) , MovieAdapter.OnMovieCl
 
         binding = FragmentMovieBinding.bind(view)
 
-        val navHostFragment = (activity as FragmentActivity).supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        navController = navHostFragment.navController
-        binding.bottomNavigationView.setupWithNavController(navController)
-        //observeDestinationChange()
-
-
         concatAdapter = ConcatAdapter()
 
         initRecyclerView()
 
     }
 
-    private fun observeDestinationChange() {
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            when(destination.id){
-                R.id.movieFragment -> {
-                    binding.bottomNavigationView.hide()
-                }
-                else -> {
-                    binding.bottomNavigationView.show()
-                }
-            }
-        }
-    }
 
     private fun initRecyclerView() {
         Log.d("LiveDataeeee", "init recycler")
@@ -135,7 +116,8 @@ class MovieFragment : Fragment(R.layout.fragment_movie) , MovieAdapter.OnMovieCl
             movie.voteAverage!!.toFloat(),
             movie.overview!!,
             movie.id!!,
-            movie.releaseDate!!
+            movie.releaseDate!!,
+            movie.favorite!!
         )
         findNavController().navigate(action)
     }

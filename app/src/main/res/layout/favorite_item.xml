@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:background="@color/black"
+    android:paddingHorizontal="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -37,7 +38,7 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="10dp"
             tools:text="Titulo"
-            android:textSize="20sp"
+            android:textSize="13sp"
             android:textColor="@color/white"/>
 
         <TextView
@@ -46,7 +47,7 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="10dp"
             tools:text="Titulo"
-            android:textSize="13sp"
+            android:textSize="9sp"
             android:textColor="@color/white"/>
 
     </LinearLayout>

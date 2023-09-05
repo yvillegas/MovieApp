@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_movieFragment_to_movieDetailFragment"
             app:destination="@id/movieDetailFragment" />
+        <action
+            android:id="@+id/action_movieFragment_to_movieFavoritesFragment"
+            app:destination="@id/movieFavoritesFragment" />
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
@@ -37,5 +40,17 @@
         <argument
             android:name="releaseDate"
             app:argType="string" />
+        <argument
+            android:name="favorite"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieFavoritesFragment"
+        android:name="com.yvillegas.movieapp.ui.moviefavorites.MovieFavoritesFragment"
+        android:label="fragment_movie_favorites"
+        tools:layout="@layout/fragment_movie_favorites" >
+        <action
+            android:id="@+id/action_movieFavoritesFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
     </fragment>
 </navigation>

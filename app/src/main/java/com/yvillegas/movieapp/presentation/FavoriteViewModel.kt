@@ -9,10 +9,19 @@ import kotlinx.coroutines.Dispatchers
 import java.lang.Exception
 
 class FavoriteViewModel(private val repository: MovieRepository): ViewModel() {
-    fun addFavoriteMovie(id: String) = liveData(Dispatchers.IO) {
+    fun addFavoriteMovie(id: String, flag:String) = liveData(Dispatchers.IO) {
         emit(Resource.Loading())
         try {
-            emit(Resource.Success(repository.addFavoriteMovies(id)))
+            emit(Resource.Success(repository.addFavoriteMovies(id,flag)))
+        }catch (e: Exception){
+            emit(Resource.Failure(e))
+        }
+    }
+
+    fun getFavoriteMovie() = liveData(Dispatchers.IO) {
+        emit(Resource.Loading())
+        try {
+            emit(Resource.Success(repository.getFavoriteMovies()))
         }catch (e: Exception){
             emit(Resource.Failure(e))
         }
