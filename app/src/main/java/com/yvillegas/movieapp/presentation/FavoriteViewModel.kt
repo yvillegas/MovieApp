@@ -4,15 +4,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
 import com.yvillegas.movieapp.core.Resource
+import com.yvillegas.movieapp.data.model.Movie
 import com.yvillegas.movieapp.domain.MovieRepository
 import kotlinx.coroutines.Dispatchers
 import java.lang.Exception
 
 class FavoriteViewModel(private val repository: MovieRepository): ViewModel() {
-    fun addFavoriteMovie(id: String, flag:String) = liveData(Dispatchers.IO) {
+    fun addFavoriteMovie(movie: Movie) = liveData(Dispatchers.IO) {
         emit(Resource.Loading())
         try {
-            emit(Resource.Success(repository.addFavoriteMovies(id,flag)))
+            emit(Resource.Success(repository.addFavoriteMovies(movie)))
         }catch (e: Exception){
             emit(Resource.Failure(e))
         }
@@ -22,6 +23,24 @@ class FavoriteViewModel(private val repository: MovieRepository): ViewModel() {
         emit(Resource.Loading())
         try {
             emit(Resource.Success(repository.getFavoriteMovies()))
+        }catch (e: Exception){
+            emit(Resource.Failure(e))
+        }
+    }
+
+    fun getIsFavorite(id: Int) = liveData(Dispatchers.IO) {
+        emit(Resource.Loading())
+        try {
+            emit(Resource.Success(repository.getIsFavorite(id)))
+        }catch (e: Exception){
+            emit(Resource.Failure(e))
+        }
+    }
+
+    fun delFavoriteMovie(id: Int) = liveData(Dispatchers.IO) {
+        emit(Resource.Loading())
+        try {
+            emit(Resource.Success(repository.delFavoriteMovies(id)))
         }catch (e: Exception){
             emit(Resource.Failure(e))
         }

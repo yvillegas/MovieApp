@@ -1,6 +1,7 @@
 package com.yvillegas.movieapp.data.local
 
 import android.util.Log
+import com.yvillegas.movieapp.data.model.Movie
 import com.yvillegas.movieapp.data.model.MovieList
 import com.yvillegas.movieapp.data.model.entities.MovieEntity
 import com.yvillegas.movieapp.data.model.entities.toMovieList
@@ -23,7 +24,7 @@ class LocalMovieDataSource(private val movieDao: MovieDao) {
 
     suspend fun getFavoriteMovies(): MovieList
     {
-        return movieDao.getAllMovies().filter { it.favorite == "true" }.toMovieList()
+        return movieDao.getAllMovies().filter { it.movieType == "favorite" }.toMovieList()
     }
 
 
@@ -31,10 +32,16 @@ class LocalMovieDataSource(private val movieDao: MovieDao) {
         movieDao.saveMovie(movie)
     }
 
-    suspend fun addFavoriteMovies(id: String, flag:String){
-        movieDao.addFavorite(id , flag)
+    suspend fun addFavoriteMovies(movie: MovieEntity){
+        movieDao.saveMovie(movie)
     }
-    suspend fun deleteFavoriteMovies(id: String){
-        movieDao.deleteFavorite(id)
+
+    suspend fun delFavoriteMovies(id: Int){
+        movieDao.delFavoriteMovies(id)
     }
+
+    fun getIsFavorite(id: Int): Int {
+        return movieDao.isFavorite(id)
+    }
+
 }

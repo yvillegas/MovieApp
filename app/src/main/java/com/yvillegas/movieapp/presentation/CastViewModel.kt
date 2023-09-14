@@ -17,6 +17,7 @@ class CastViewModel(private val repository: MovieRepository): ViewModel() {
             emit(Resource.Failure(e))
         }
     }
+
 }
 
 class CastViewModelFactory(private val repository: MovieRepository): ViewModelProvider.Factory{

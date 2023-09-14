@@ -11,11 +11,14 @@ import com.yvillegas.movieapp.core.BaseViewHolder
 import com.yvillegas.movieapp.data.model.Movie
 import com.yvillegas.movieapp.databinding.MovieItemBinding
 
-class MovieAdapter(private val movieList: List<Movie>, private val itemClickListener: OnMovieClickListener) : RecyclerView.Adapter<BaseViewHolder<*>>(){
+class MovieAdapter(private val movieList: MutableList<Movie>, private val itemClickListener: OnMovieClickListener, private val itemScroll: OnMovieItemScroll) : RecyclerView.Adapter<BaseViewHolder<*>>(){
     interface OnMovieClickListener{
         fun onMovieClick(movie: Movie)
     }
 
+    interface OnMovieItemScroll{
+        fun OnMovieScroll(movie_type: String)
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         val itemBinding = MovieItemBinding.inflate(LayoutInflater.from(parent.context),parent, false)
         val holder = MovieViewHolder(itemBinding, parent.context)
@@ -25,7 +28,9 @@ class MovieAdapter(private val movieList: List<Movie>, private val itemClickList
                 ?: return@setOnClickListener
             itemClickListener.onMovieClick(movieList[position])
         }
+
         return holder
+
     }
 
     override fun getItemCount(): Int = movieList.size
@@ -33,6 +38,9 @@ class MovieAdapter(private val movieList: List<Movie>, private val itemClickList
     override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
         when(holder){
             is MovieViewHolder -> holder.bind(movieList[position])
+        }
+        if (position == itemCount - 1) {
+            itemScroll.OnMovieScroll(movieList[position].movieType.toString())
         }
     }
 

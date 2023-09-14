@@ -13,7 +13,34 @@ class MovieViewModel(private val repository: MovieRepository): ViewModel() {
     fun getMovies() = liveData(Dispatchers.IO) {
         emit(Resource.Loading())
         try {
-            emit(Resource.Success(Triple(repository.getUpcomingMovies(), repository.getTopRatedMovies() , repository.getPopularMovies())))
+            emit(Resource.Success(Triple(repository.getUpcomingMovies(1), repository.getTopRatedMovies(1) , repository.getPopularMovies(1))))
+        }catch (e: Exception){
+            emit(Resource.Failure(e))
+        }
+    }
+
+    fun getUpcomingMovies(page: Int) = liveData(Dispatchers.IO) {
+        emit(Resource.Loading())
+        try {
+            emit(Resource.Success(repository.getUpcomingMovies(page)))
+        }catch (e: Exception){
+            emit(Resource.Failure(e))
+        }
+    }
+
+    fun getTopRatedMovies(page: Int) = liveData(Dispatchers.IO) {
+        emit(Resource.Loading())
+        try {
+            emit(Resource.Success(repository.getTopRatedMovies(page) ))
+        }catch (e: Exception){
+            emit(Resource.Failure(e))
+        }
+    }
+
+    fun getPopularMovies(page: Int) = liveData(Dispatchers.IO) {
+        emit(Resource.Loading())
+        try {
+            emit(Resource.Success(repository.getPopularMovies(page)))
         }catch (e: Exception){
             emit(Resource.Failure(e))
         }

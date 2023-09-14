@@ -14,13 +14,13 @@ import retrofit2.http.Query
 interface WebService {
 
     @GET("movie/upcoming")
-    suspend fun getUpcomingMovies(@Query("api_key") apiKey: String): MovieList
+    suspend fun getUpcomingMovies(@Query("page") page: Int, @Query("api_key") apiKey: String): MovieList
 
     @GET("movie/top_rated")
-    suspend fun getTopRatedMovies(@Query("api_key") apiKey: String): MovieList
+    suspend fun getTopRatedMovies(@Query("page") page: Int,@Query("api_key") apiKey: String): MovieList
 
     @GET("movie/popular")
-    suspend fun getPopularMovies(@Query("api_key") apiKey: String): MovieList
+    suspend fun getPopularMovies(@Query("page") page: Int,@Query("api_key") apiKey: String): MovieList
 
     @GET("movie/{id}/credits")
     suspend fun getCastMovie(@Path("id") id: String, @Query("api_key") apiKey: String): CastList

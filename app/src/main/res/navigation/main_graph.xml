@@ -23,26 +23,41 @@
         android:label="fragment_movie_detail"
         tools:layout="@layout/fragment_movie_detail" >
         <argument
-            android:name="posterPath"
+            android:name="id"
+            app:argType="integer" />
+        <argument
+            android:name="adult"
+            app:argType="boolean" />
+        <argument
+            android:name="backdrop_path"
             app:argType="string" />
         <argument
             android:name="originalTitle"
             app:argType="string" />
         <argument
-            android:name="voteAverage"
-            app:argType="float" />
+            android:name="originalLanguage"
+            app:argType="string" />
         <argument
             android:name="overview"
             app:argType="string" />
         <argument
-            android:name="id"
+            android:name="popularity"
+            app:argType="string" />
+        <argument
+            android:name="posterPath"
+            app:argType="string" />
+        <argument
+            android:name="release_date"
+            app:argType="string" />
+        <argument
+            android:name="video"
+            app:argType="boolean" />
+        <argument
+            android:name="vote_average"
+            app:argType="float" />
+        <argument
+            android:name="vote_count"
             app:argType="integer" />
-        <argument
-            android:name="releaseDate"
-            app:argType="string" />
-        <argument
-            android:name="favorite"
-            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/movieFavoritesFragment"

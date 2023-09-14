@@ -32,10 +32,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="15dp"
-            android:text="Movies"
+            android:text="@string/app_name"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="25sp"/>
+            android:textSize="15sp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_movies"

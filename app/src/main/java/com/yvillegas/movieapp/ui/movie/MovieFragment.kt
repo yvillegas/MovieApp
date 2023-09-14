@@ -5,20 +5,17 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import com.yvillegas.movieapp.R
 import com.yvillegas.movieapp.core.Resource
-import com.yvillegas.movieapp.core.hide
-import com.yvillegas.movieapp.core.show
 import com.yvillegas.movieapp.data.local.AppDatabase
 import com.yvillegas.movieapp.data.local.LocalMovieDataSource
 import com.yvillegas.movieapp.data.model.Movie
+import com.yvillegas.movieapp.data.model.MovieList
 import com.yvillegas.movieapp.data.remote.RemoteMovieDataSource
 import com.yvillegas.movieapp.databinding.FragmentMovieBinding
 import com.yvillegas.movieapp.domain.MovieRepositoryImpl
@@ -29,14 +26,22 @@ import com.yvillegas.movieapp.ui.movie.adapters.MovieAdapter
 import com.yvillegas.movieapp.ui.movie.adapters.concat.PopularConcatAdapter
 import com.yvillegas.movieapp.ui.movie.adapters.concat.TopRatedConcatAdapter
 import com.yvillegas.movieapp.ui.movie.adapters.concat.UpcomingConcatAdapter
-import com.yvillegas.movieapp.ui.moviedetail.MovieDetailFragment
 
-class MovieFragment : Fragment(R.layout.fragment_movie) , MovieAdapter.OnMovieClickListener{
+class MovieFragment : Fragment(R.layout.fragment_movie), MovieAdapter.OnMovieClickListener,
+    MovieAdapter.OnMovieItemScroll {
     private lateinit var binding: FragmentMovieBinding
-
 
     private lateinit var concatAdapter: ConcatAdapter
 
+    private lateinit var movieAdapters: List<MovieAdapter>
+
+    private lateinit var movieLists: List<MovieList>
+
+    private val mapMovie = mapOf("upcoming" to 0, "toprated" to 1, "popular" to 2)
+
+    private var typeMovie = 1
+
+    private lateinit var viewModelM: LiveData<Resource<MovieList>>
 
     private val viewModel by viewModels<MovieViewModel> {
         MovieViewModelFactory(
@@ -56,6 +61,7 @@ class MovieFragment : Fragment(R.layout.fragment_movie) , MovieAdapter.OnMovieCl
 
         initRecyclerView()
 
+
     }
 
 
@@ -70,25 +76,45 @@ class MovieFragment : Fragment(R.layout.fragment_movie) , MovieAdapter.OnMovieCl
                 }
 
                 is Resource.Success -> {
+                    movieLists = listOf(result.data.first, result.data.second, result.data.third)
+
                     binding.progressBar.visibility = View.GONE
-                    Log.d("LiveDatasss", result.data.first.results!!.size.toString())
+
+                    movieAdapters = listOf(
+                        MovieAdapter(
+                            movieLists[0].results!!,
+                            this@MovieFragment,
+                            this@MovieFragment
+                        ),
+                        MovieAdapter(
+                            movieLists[1].results!!,
+                            this@MovieFragment,
+                            this@MovieFragment
+                        ),
+                        MovieAdapter(
+                            movieLists[2].results!!,
+                            this@MovieFragment,
+                            this@MovieFragment
+                        ),
+                    )
+
                     concatAdapter.apply {
                         addAdapter(
                             0,
                             UpcomingConcatAdapter(
-                                MovieAdapter(result.data.first.results!!, this@MovieFragment)
+                                movieAdapters[0]
                             )
                         )
                         addAdapter(
                             1,
                             TopRatedConcatAdapter(
-                                MovieAdapter(result.data.second.results!!, this@MovieFragment)
+                                movieAdapters[1]
                             )
                         )
                         addAdapter(
                             2,
                             PopularConcatAdapter(
-                                MovieAdapter(result.data.third.results!!, this@MovieFragment)
+                                movieAdapters[2]
                             )
                         )
                         binding.rvMovies.adapter = concatAdapter
@@ -111,14 +137,57 @@ class MovieFragment : Fragment(R.layout.fragment_movie) , MovieAdapter.OnMovieCl
 
     override fun onMovieClick(movie: Movie) {
         val action = MovieFragmentDirections.actionMovieFragmentToMovieDetailFragment(
-            movie.posterPath!!,
-            movie.originalTitle!!,
-            movie.voteAverage!!.toFloat(),
-            movie.overview!!,
-            movie.id!!,
-            movie.releaseDate!!,
-            movie.favorite!!
+            movie.id,
+            movie.adult,
+            movie.backdropPath,
+            movie.originalTitle,
+            movie.originalLanguage,
+            movie.overview,
+            movie.popularity.toString(),
+            movie.posterPath,
+            movie.releaseDate,
+            movie.video,
+            movie.voteAverage.toFloat(),
+            movie.voteCount
         )
         findNavController().navigate(action)
+    }
+
+    override fun OnMovieScroll(movie_type: String) {
+
+        typeMovie = mapMovie[movie_type]!!.toInt()
+
+        movieLists[typeMovie].page = movieLists[typeMovie].page ?: 1
+        movieLists[typeMovie].page = movieLists[typeMovie].page!! + 1
+
+
+
+        if (movie_type == "toprated")
+            viewModelM = viewModel.getTopRatedMovies(movieLists[typeMovie].page!!)
+        else if (movie_type == "upcoming")
+            viewModelM = viewModel.getUpcomingMovies(movieLists[typeMovie].page!!)
+        else
+            viewModelM = viewModel.getPopularMovies(movieLists[typeMovie].page!!)
+
+        viewModelM.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Loading -> {
+                    Log.d("LiveDataeeee", "cargandooo")
+                }
+
+                is Resource.Success -> {
+                    movieLists[typeMovie].results.addAll(it.data.results)
+                    movieAdapters[typeMovie].notifyItemInserted(movieLists[typeMovie].results.size - 1)
+                }
+
+                is Resource.Failure -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "Ocurrio un error: ${it.exception}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
     }
 }

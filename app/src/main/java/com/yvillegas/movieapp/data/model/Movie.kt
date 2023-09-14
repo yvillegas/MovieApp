@@ -5,55 +5,53 @@ import com.yvillegas.movieapp.data.model.entities.MovieEntity
 
 data class MovieList(
 
-    val results: List<Movie>? = listOf(),
+    val results: MutableList<Movie>,
 
-    val page: Long? = null,
+    var page: Int? = 1,
 
     @SerializedName("total_pages")
-    val totalPages: Long? = null,
+    val totalPages: Int? = 0,
 
     @SerializedName("total_results")
-    val totalResults: Long? = null
+    val totalResults: Int? = 0
 )
 
 data class Movie(
 
-    val id: Int? = null,
+    val id: Int = -1,
 
-    val adult: Boolean? = null,
+    val adult: Boolean = false,
 
     @SerializedName("backdrop_path")
-    val backdropPath: String? = null,
+    val backdropPath: String = "",
 
     @SerializedName("original_title")
-    val originalTitle: String? = null,
+    val originalTitle: String = "",
 
     @SerializedName("original_language")
-    val originalLanguage: String? = null,
+    val originalLanguage: String = "",
 
-    val overview: String? = null,
+    val overview: String = "",
 
-    val popularity: Double? = null,
+    val popularity: Double = -1.0,
 
     @SerializedName("poster_path")
-    val posterPath: String? = null,
+    val posterPath: String = "",
 
     @SerializedName("release_date")
-    val releaseDate: String? = null,
+    val releaseDate: String = "",
 
-    val video: Boolean? = null,
+    val video: Boolean = false,
 
     @SerializedName("vote_average")
-    val voteAverage: Double? = null,
+    val voteAverage: Double = -1.0,
 
     @SerializedName("vote_count")
-    val voteCount: Int? = null,
+    val voteCount: Int = -1,
 
     @SerializedName("movie_type")
-    val movieType: String? = null,
+    var movieType: String = "",
 
-    @SerializedName("favorite")
-    val favorite: String? = "false"
 )
 
 fun Movie.toMovieEntity(movieType: String): MovieEntity = MovieEntity(
@@ -69,6 +67,5 @@ fun Movie.toMovieEntity(movieType: String): MovieEntity = MovieEntity(
     this.video,
     this.voteAverage,
     this.voteCount,
-    movieType = movieType,
-    this.favorite
+    movieType = movieType
 )

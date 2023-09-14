@@ -34,7 +34,7 @@
             android:text="Favorite Movies"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="20sp"/>
+            android:textSize="15sp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_marginTop="7dp"

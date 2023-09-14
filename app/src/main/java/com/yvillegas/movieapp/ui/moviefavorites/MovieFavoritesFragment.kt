@@ -66,13 +66,18 @@ class MovieFavoritesFragment : Fragment(R.layout.fragment_movie_favorites), Favo
 
    override fun onMovieClick(movie: Movie) {
         val action = MovieFavoritesFragmentDirections.actionMovieFavoritesFragmentToMovieDetailFragment(
-            movie.posterPath!!,
-            movie.originalTitle!!,
-            movie.voteAverage!!.toFloat(),
-            movie.overview!!,
-            movie.id!!,
-            movie.releaseDate!!,
-            movie.favorite!!
+            movie.id,
+            movie.adult,
+            movie.backdropPath,
+            movie.originalTitle,
+            movie.originalLanguage,
+            movie.overview,
+            movie.popularity.toString(),
+            movie.posterPath,
+            movie.releaseDate,
+            movie.video,
+            movie.voteAverage.toFloat(),
+            movie.voteCount,
         )
         findNavController().navigate(action)
    }
